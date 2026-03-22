@@ -1,0 +1,15 @@
+.no{
+ text-align: center;
+ padding: 40px;
+ font-weight: 200;
+}
+.emptable{
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+.emptable th,.emptable td{
+    border:2px solid grey;
+    padding: 12px;
+    text-align: center;
+}

@@ -1,0 +1,26 @@
+.sidebar{
+    width: 220px;
+    background:#f5f6fa;
+    padding: 20px;
+}
+
+.nme{
+    color:blue;
+    margin-bottom: 30px;
+}
+
+.lst{
+    list-style: none;
+    padding: 0;
+}
+
+.lst li{
+    padding: 12px;
+    margin-bottom: 10px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius:30px ;
+}
+.lst li.emp{
+    background-color: blue;
+    color: white;
+}
