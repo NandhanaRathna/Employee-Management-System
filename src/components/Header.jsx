@@ -1,8 +1,12 @@
 import "../styles/header.css"
+import {FaCog,FaBell}from "react-icons/fa"
 
 function Header({openForm,showForm}){
     return(
+        
         <div className="header">
+
+           
             {!showForm &&(
                 <>
                 <input type="text" placeholder="Search" />
@@ -13,6 +17,7 @@ function Header({openForm,showForm}){
 
                 </>
             )}
+          
             
 
         </div>

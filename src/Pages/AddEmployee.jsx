@@ -12,14 +12,24 @@ function AddEmployee({addEmployee}) {
     type:"",
     status:""
   })
+  const [image,setImage] = useState(null)
+
 const handleChange = (e)=>{
   setFormData({
     ...formData,[e.target.name]:e.target.value})
 }
+
+const handleImage =(e)=>{
+  const file  = e.target.files[0]
+  if(file){
+    const imageUrl = URL.createObjectURL(file)
+    setImage(imageUrl)
+  }
+}
  const handleSubmit = (e)=>{
   e.preventDefault()
   addEmployee({
-    ...formData,id: Date.now()
+    ...formData,image:image,id: Date.now()
   })
   
  }
@@ -31,8 +41,11 @@ const handleChange = (e)=>{
       <div className='formb'>
          <form onSubmit={handleSubmit} className='form-grid'>
            <div className='prof'>
-
-            <label className='upload'>Upload Image <input type="file" name="image" hidden/>  </label>
+              <label className='upload'>
+                {image? (
+                  <img src={image} alt="" className='pre'/>
+                ):(
+                "📷")} <input type="file" hidden onChange={handleImage}/> </label>
            </div>
         <div className='ne'>
           <label>Name*</label>
@@ -41,7 +54,7 @@ const handleChange = (e)=>{
         </div>
         <div>
           <label >Employee ID*</label>
-        <input type="text" name='empId' placeholder='Enter name' onChange={handleChange} />
+        <input type="text" name='empId' placeholder='Enter employee ID' onChange={handleChange} />
 
         </div>
         <div>
@@ -65,7 +78,7 @@ const handleChange = (e)=>{
         </div>
         <div>
           <label >Project*</label>
-          <input type="text"  name='project' onChange={handleChange}/>
+          <input type="text"  name='project'placeholder='Enter Project' onChange={handleChange}/>
         </div>
         <div>
           <label >Type*</label>

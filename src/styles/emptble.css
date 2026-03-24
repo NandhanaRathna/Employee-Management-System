@@ -7,9 +7,16 @@
     width: 100%;
     border-collapse: collapse;
     background: white;
+    border-radius: 12px;
+    
 }
 .emptable th,.emptable td{
-    border:2px solid grey;
+    border:1px solid grey;
     padding: 12px;
     text-align: center;
+}
+.ics{
+    display: flex;
+    justify-content: center;
+    gap: 12px;
 }
