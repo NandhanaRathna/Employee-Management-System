@@ -9,6 +9,7 @@ function Layout() {
   const [employees,setEmployees]=useState([])
   const [showForm,setShowForm]=useState(false)
   const [selectedEmp,setSelectedEmp]=useState(null)
+  const [editData,setEditData]=useState(null)
 
   useEffect(()=>{
     fetch("http://localhost:5000/employees")
@@ -18,13 +19,23 @@ function Layout() {
   },[])
 
    const addEmployee =  async(emp)=>{
-    await fetch("http://localhost:5000/add",{
+    if(editData){
+      await fetch(`http://localhost:5000/update/${editData._id}`,{
+        method:"PUT",
+        headers:{
+          "Content-Type":"application/json"
+        },
+         body:JSON.stringify(emp)
+      })
+      setEditData(null)
+    }else{ await fetch("http://localhost:5000/add",{
       method:"POST",
       headers:{
         "Content-Type":"application/json"
       },
       body:JSON.stringify(emp)
-    })
+    })}
+   
     const res=await fetch("http://localhost:5000/employees")
     const data = await res.json()
     setEmployees(data)
@@ -64,14 +75,17 @@ function Layout() {
   <button onClick={()=>setSelectedEmp(null)}>⬅Back</button>
   </div>
  ): showForm ? (
-  <AddEmployee addEmployee={addEmployee}/>
+  <AddEmployee addEmployee={addEmployee} editData={editData}/>
 
  ):(
   <>
     <h2>Employee</h2>
           <EmployeeTable employees={employees}
           onView = {(emp)=>setSelectedEmp(emp)}
-          onDelete={(id)=>deleteEmployee(id)}/>
+          onDelete={(id)=>deleteEmployee(id)}
+          onEdit={(emp)=>{setEditData(emp)
+            setShowForm(true)
+          }}/>
 
           </>
 

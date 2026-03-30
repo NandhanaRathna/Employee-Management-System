@@ -1,6 +1,6 @@
 import "../styles/emptble.css"
 import { FaEye, FaEdit, FaTrash } from "react-icons/fa"
-function EmployeeTable({employees,onView,onDelete}){
+function EmployeeTable({employees,onView,onDelete,onEdit}){
     return(
         <table className="emptable">
             <thead>
@@ -32,7 +32,7 @@ function EmployeeTable({employees,onView,onDelete}){
  <td>{emp.type}</td>
  <td>{emp.status}</td>
  <td className="ics"><FaEye className="view icon" onClick={()=>onView(emp)}></FaEye>
- <FaEdit className="edit icon"></FaEdit>
+ <FaEdit className="edit icon" onClick={()=>onEdit(emp)}></FaEdit>
  <FaTrash className="delete icon" onClick={()=>{if(window.confirm("Are you sure you want to delete this employee?")){
     onDelete(emp._id)}}}></FaTrash>
  

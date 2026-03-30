@@ -1,8 +1,8 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import "../styles/addEmployee.css"
 
-function AddEmployee({addEmployee}) {
+function AddEmployee({addEmployee,editData}) {
   const [formData,setFormData] = useState({
     name:"",
     empId:"",
@@ -13,6 +13,31 @@ function AddEmployee({addEmployee}) {
     status:""
   })
   const [image,setImage] = useState(null)
+
+
+  useEffect(()=>{
+    if(editData){
+      setFormData({
+        name: editData.name || "",
+        empId: editData.empId || "",
+        department: editData.department || "",
+        designation: editData.designation || "",
+        project : editData.project || "",
+        type:editData.type || "",
+        status: editData.status || ""})
+            setImage(editData.image || null)
+    }else{
+      setFormData({
+        name : "",
+        empId:"",
+        department:"",
+        project:"",
+        type:"",
+        status:""
+      })
+      setImage(null)
+    }
+  },[editData])
 
 const handleChange = (e)=>{
   setFormData({
@@ -29,14 +54,14 @@ const handleImage =(e)=>{
  const handleSubmit = (e)=>{
   e.preventDefault()
   addEmployee({
-    ...formData,image:image,id: Date.now()
+    ...formData,image:image
   })
   
  }
 
   return (
     <div className='forms'>
-      <h2>Add New Employee</h2>
+      <h2>{editData ? "Edit Employee" : "Add New Employee"}</h2>
       <p style={{color:"blue" , fontWeight:"bolder",fontSize:"32px"}}> Personal Information</p> <hr /><br />
       <div className='formb'>
          <form onSubmit={handleSubmit} className='form-grid'>
@@ -97,7 +122,7 @@ const handleImage =(e)=>{
           </select>
         </div>
         <div className='btns'>
-        <button type='submit' className='confirm'>Confirm</button>
+        <button type='submit' className='confirm'>{editData ? "Update":"Confirm"}</button>
         <button type='button' className='cancel'>Cancel</button>
 
         </div>
